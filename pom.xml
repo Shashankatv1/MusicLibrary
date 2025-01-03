@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.3.7</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>com.shashank</groupId>
     <artifactId>MusicLibrary</artifactId>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>3.7.1</version>  <!-- Use the appropriate version for your project -->
+            <version>3.7.1</version>
         </dependency>
 
         <dependency>

@@ -20,6 +20,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect  # MySQL 8 dialect for Hibernate
 
+
   jedis:
     pool:
       max-idle: 10
@@ -37,3 +38,9 @@ spring:
   sql:
     init:
       mode: always
+logging:
+  level:
+    org:
+      springframework:
+        jdbc: DEBUG
+        orm: DEBUG

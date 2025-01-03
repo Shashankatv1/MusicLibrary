@@ -2,10 +2,6 @@
 spring:
   application:
     name: MusicLibrary
-  security:
-    user:
-      name: admin
-      password: admin
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -13,9 +9,10 @@ spring:
     username: 'root'
     password: 'password'
     hikari:
-      maximum-pool-size: 10
-      connection-timeout: 30000
-      idle-timeout: 600000
+      connection-timeout: 30000                  # Timeout for acquiring a connection (30 seconds)
+      maximum-pool-size: 10                       # Maximum pool size
+      minimum-idle: 5                             # Minimum idle connections in the pool
+      idle-timeout: 600000                        # Maximum time an idle connection is kept in the pool (10 minutes)
   jpa:
     hibernate:
       ddl-auto: update
@@ -36,3 +33,6 @@ spring:
       port: 6379
       password: ""
       timeout: 2000
+  sql:
+    init:
+      mode: always

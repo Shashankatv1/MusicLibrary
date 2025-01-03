@@ -21,12 +21,7 @@ spring:
       hibernate:
         dialect: 'org.hibernate.dialect.MySQL8Dialect'
 
-  jedis:
-    pool:
-      max-idle: 10
-      min-idle: 1
-      max-active: 10
-      max-wait: 2000
+
   data:
     redis:
       host: localhost

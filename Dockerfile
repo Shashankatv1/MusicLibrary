@@ -5,8 +5,7 @@ FROM maven:3.8.3-openjdk-17 AS build
 WORKDIR /app
 
 # Copy the pom.xml and the src folder to the working directory
-COPY pom.xml ./
-COPY src ./src
+COPY . .
 
 # Run the maven build to package the Spring Boot application
 RUN mvn clean package -DskipTests

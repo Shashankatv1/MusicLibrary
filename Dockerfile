@@ -1,28 +1,30 @@
-# Use the official Maven image to build the app
+# Use Maven to build the app
 FROM maven:3.8.3-openjdk-17 AS build
 
-WORKDIR /app
 
-# Copy the pom.xml and install dependencies
+
+# Copy the pom.xml file and install dependencies
 COPY pom.xml .
+
+
 RUN mvn clean install -DskipTests
 
-# Copy the entire source code
+# Copy the source code into the image
 COPY src ./src
 
-# Package the app
+# Package the app into a jar file
 RUN mvn clean package -DskipTests
 
-# Use the openjdk image to run the app
+
 FROM openjdk:17.0.1-jdk-slim
 
 WORKDIR /app
 
 # Copy the jar file from the build stage
-COPY --from=build /app/target/music-library-api-0.0.1-SNAPSHOT.jar /app/music-library-api.jar
+COPY --from=build /target/music-library-api-0.0.1-SNAPSHOT.jar music-library-api.jar
 
-# Expose the port the app will run on
+# Expose port 8080
 EXPOSE 8080
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "/app/music-library-api.jar"]
+ENTRYPOINT ["java", "-jar", "music-library-api.jar"]

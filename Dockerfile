@@ -4,8 +4,8 @@ FROM maven:3.8.3-openjdk-17 AS build
 
 
 # Copy the pom.xml file and install dependencies
-COPY pom.xml .
-COPY src ./src
+
+COPY . .
 
 # Package the app into a jar file
 RUN mvn clean package -DskipTests

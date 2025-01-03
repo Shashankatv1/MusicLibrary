@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Run the maven build to package the Spring Boot application
-RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests]1
 
 # Second stage: Run the application using OpenJDK
 FROM openjdk:17.0.1-jdk-slim

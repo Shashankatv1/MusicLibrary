@@ -61,15 +61,6 @@ public class Artist {
         return Objects.hash(artistId);
     }
 
-    // Business logic methods
-    public boolean isVisible() {
-        return !hidden;
-    }
-
-    public void toggleVisibility() {
-        this.hidden = !this.hidden;
-    }
-
     public boolean getHidden() {
         return hidden;
     }

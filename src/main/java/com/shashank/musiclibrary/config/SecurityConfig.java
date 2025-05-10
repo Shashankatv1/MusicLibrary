@@ -32,16 +32,16 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())  // Disable CSRF as it's not needed for stateless authentication
                 .authorizeHttpRequests(  authz -> authz.
                         requestMatchers("/api/users/signup", "/api/users/login","/api/users/update-password")
-                        .permitAll().requestMatchers("/api/users","/api/users/","/api/users/add-user").hasRole("ADMIN")
+                        .permitAll().requestMatchers("/api/users","/api/users/","/api/users/add-user","/api/users/logout","/api/artists").hasRole("ADMIN")
 
                         .requestMatchers(
                                 "/api/artists", "/api/artists/", "/api/artists/artist", "/api/artists/update/", "/api/artists/delete/",
                                 "/api/albums", "/api/albums/", "/api/albums/add-album", "/api/albums/update/", "/api/albums/delete/",
                                 "/api/tracks", "/api/tracks/", "/api/tracks/add-track", "/api/tracks/update/", "/api/tracks/delete/",
-                                "/api/users/update-password")  // Allow editors to update their own password
+                                "/api/users/logout")  // Allow editors to update their own password
                         .hasRole("EDITOR")
 
-                        .requestMatchers("/api/favorites/", "/api/favorites/add-favorite", "/api/favorites/remove-favorite/","/api/users/logout").authenticated()
+                        .requestMatchers("/api/favorites/", "/api/favorites/add-favorite", "/api/favorites/remove-favorite/","/api/users/logout","/api/users/update-password").authenticated()
                         .anyRequest()
                         .authenticated())
                         .httpBasic(Customizer.withDefaults())  // Basic Authentication
@@ -56,7 +56,6 @@ public class SecurityConfig {
    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
    }
-
 
     @Bean
     public AuthenticationProvider authenticationProvider() {

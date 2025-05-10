@@ -10,5 +10,10 @@ import java.util.UUID;
 
 @Repository
 public interface FavoriteRepository extends JpaRepository<Favorite, UUID> {
-    List<Favorite> findByCategory(String category);
+    Optional<Favorite> findByUserIdAndCategoryAndItemId(UUID userId, String category, UUID itemId);
+
+    // Additional useful queries
+    List<Favorite> findByUserId(UUID userId);
+    List<Favorite> findByUserIdAndCategory(UUID userId, String category);
+    boolean existsByUserIdAndCategoryAndItemId(UUID userId, String category, UUID itemId);
 }

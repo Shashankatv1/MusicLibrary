@@ -48,7 +48,6 @@ public class JWTService {
                 .and()
                 .signWith(getKey())
                 .compact();
-
     }
 
     private SecretKey getKey() {

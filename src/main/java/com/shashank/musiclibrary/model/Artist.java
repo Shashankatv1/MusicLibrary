@@ -3,29 +3,79 @@ package com.shashank.musiclibrary.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
+@Table(name = "artists")
 @Getter
 @Setter
-@Table(name="artists")
+@ToString
 public class Artist {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID artist_id;
-    @Column(nullable = false)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "artist_id", updatable = false, nullable = false, columnDefinition = "UUID DEFAULT gen_random_uuid()")
+    private UUID artistId;
+
+    @Column(nullable = false, length = 100)
     private String name;
-    @Column(nullable = false)
-    private Integer grammy;
-    @Column(nullable = false)
-    private boolean hidden;
 
-    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Track> tracks;
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean grammy = false;
 
-   public boolean getHidden() {
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean hidden = false;
+
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @Version
+    private Long version;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Artist artist = (Artist) o;
+        return Objects.equals(artistId, artist.artistId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(artistId);
+    }
+
+    // Business logic methods
+    public boolean isVisible() {
+        return !hidden;
+    }
+
+    public void toggleVisibility() {
+        this.hidden = !this.hidden;
+    }
+
+    public boolean getHidden() {
         return hidden;
-   }
+    }
+
+
+    public boolean getGrammy() {
+        return grammy;
+    }
 }

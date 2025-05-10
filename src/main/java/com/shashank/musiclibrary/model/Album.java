@@ -19,10 +19,7 @@ import java.util.UUID;
         @GeneratedValue(strategy = GenerationType.AUTO)
         private UUID album_Id; // Unique identifier for the album
 
-;
-
         private String artist_name;
-
 
         @ManyToOne
         @JoinColumn(name = "artist_id", referencedColumnName = "artist_id", nullable = false)

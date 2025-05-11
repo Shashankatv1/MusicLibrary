@@ -12,32 +12,33 @@ spring:
       maximum-pool-size: 10
       minimum-idle: 5
       idle-timeout: 600000
+
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect  # MySQL 8 dialect for Hibernate
-
-
-  jedis:
-    pool:
-      max-idle: 10
-      min-idle: 1
-      max-active: 10
-      max-wait: 2000
+        dialect: org.hibernate.dialect.MySQL8Dialect
 
   data:
     redis:
       host: localhost
       port: 6379
-      password: ""
-      timeout: 2000
+      jedis:
+        pool:
+          max-idle: 10
+          min-idle: 1
+          max-active: 10
+          max-wait: 2000
+
+  cache:
+    type: redis
 
   sql:
     init:
       mode: always
+
 logging:
   level:
     org:
